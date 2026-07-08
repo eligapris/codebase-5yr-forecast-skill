@@ -1,5 +1,7 @@
 # Codebase 5-Year Forecast
 
+**Repository:** [github.com/labKnowledge/codebase-5yr-forecast-skill](https://github.com/labKnowledge/codebase-5yr-forecast-skill)
+
 A **Cursor Agent Skill** that produces a reproducible, evidence-backed **5-year survival and moat forecast** for any codebase, app, or product idea.
 
 The skill is deliberately **brutal and quantitative**. It does not write flattering essays — it runs fixed formulas on gathered evidence and delivers a clinical verdict: *Durable*, *Eroding*, *At Risk*, or *Terminal*.
@@ -309,9 +311,60 @@ The skill honors a "dead truth backed by statistics" mandate:
 
 ---
 
+## Installation
+
+### Recommended — Skills CLI (`npx skills`)
+
+The fastest way to install for Cursor, Codex, and other supported agents:
+
+```bash
+npx skills add labKnowledge/codebase-5yr-forecast-skill -g -y
+```
+
+| Flag | Purpose |
+|------|---------|
+| `-g` | Install globally (user-level, all projects) |
+| `-y` | Skip confirmation prompts |
+
+**Other useful commands:**
+
+```bash
+npx skills find moat forecast          # search the registry
+npx skills check                       # check for updates
+npx skills update                      # update installed skills
+```
+
+Browse the ecosystem at [skills.sh](https://skills.sh/).
+
+> **Scripts note:** `npx skills add` installs the agent skill (`SKILL.md`) for chat use. For the Python tooling (`scripts/`, `references/`, `assets/`), clone the full repository (below).
+
+### Full install — git clone (includes scripts)
+
+Use this when you want the deterministic scoring engine and report generator on disk:
+
+```bash
+git clone https://github.com/labKnowledge/codebase-5yr-forecast-skill.git ~/.cursor/skills/codebase-5yr-forecast
+```
+
+**Codex:**
+
+```bash
+git clone https://github.com/labKnowledge/codebase-5yr-forecast-skill.git ~/.codex/skills/codebase-5yr-forecast
+```
+
+### Project-level (team shared)
+
+```bash
+git clone https://github.com/labKnowledge/codebase-5yr-forecast-skill.git .cursor/skills/codebase-5yr-forecast
+```
+
+Commit `.cursor/skills/codebase-5yr-forecast/` so teammates get the same guidance.
+
+---
+
 ## Using the skill in Cursor
 
-1. Install or place this skill in your Cursor skills directory.
+1. Install via `npx skills add` (above) or clone the repository into your skills directory.
 2. Ask the agent to forecast a project — e.g.:
    - *"Run a 5-year forecast on ~/my-app"*
    - *"What's the moat of https://github.com/org/repo?"*
