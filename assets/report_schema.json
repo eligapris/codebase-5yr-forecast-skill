@@ -1,0 +1,190 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Codebase 5-Year Forecast Output Bundle",
+  "version": "1.0.0",
+  "description": "Machine-readable output bundle for the codebase-5yr-forecast skill. Two tools that produce the same scoring_input.json will produce byte-identical bundles (modulo generated_at timestamp).",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "generated_at",
+    "project_name",
+    "skill_version",
+    "script_version",
+    "scoring_methodology_version",
+    "input_hash",
+    "verdict",
+    "expected_y5",
+    "expected_m0",
+    "composite",
+    "axes",
+    "scenarios",
+    "calculation_trace",
+    "manifest"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0.0"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "project_name": {"type": "string"},
+    "skill_version": {"type": "string"},
+    "script_version": {"type": "string"},
+    "scoring_methodology_version": {"type": "string"},
+    "input_hash": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "Durable — Defend & Extend",
+        "Eroding — Reinforce or Niche",
+        "At Risk — Pivot Required",
+        "Terminal — Sunset or Radical Pivot"
+      ]
+    },
+    "expected_y5": {"type": "number", "minimum": 0, "maximum": 100},
+    "expected_m0": {"type": "number", "minimum": 0, "maximum": 100},
+    "composite": {
+      "type": "object",
+      "required": ["m0", "lambda", "base_projection", "weights"],
+      "properties": {
+        "m0": {"type": "number"},
+        "lambda": {"type": "number"},
+        "base_projection": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["year", "moat_score", "decay_pct"],
+            "properties": {
+              "year": {"type": "integer", "minimum": 0, "maximum": 5},
+              "moat_score": {"type": "number"},
+              "decay_pct": {"type": "number"}
+            }
+          }
+        },
+        "weights": {"type": "object"}
+      }
+    },
+    "axes": {
+      "type": "object",
+      "required": ["technical_moat", "trend_alignment", "market_demand", "ai_disruption_exposure"],
+      "properties": {
+        "technical_moat": {"$ref": "#/definitions/axis"},
+        "trend_alignment": {"$ref": "#/definitions/axis"},
+        "market_demand": {"$ref": "#/definitions/axis"},
+        "ai_disruption_exposure": {"$ref": "#/definitions/axis"}
+      }
+    },
+    "scenarios": {
+      "type": "object",
+      "required": ["bull", "base", "bear"],
+      "properties": {
+        "bull": {"$ref": "#/definitions/scenario"},
+        "base": {"$ref": "#/definitions/scenario"},
+        "bear": {"$ref": "#/definitions/scenario"}
+      }
+    },
+    "confidence_interval": {
+      "type": ["object", "null"],
+      "properties": {
+        "samples": {"type": "integer"},
+        "seed": {"type": "integer"},
+        "p5": {"type": "number"},
+        "p95": {"type": "number"},
+        "interval": {"type": "array", "items": {"type": "number"}, "minItems": 2, "maxItems": 2}
+      }
+    },
+    "overrides_applied": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "original_value", "new_value", "justification", "evidence_citations"],
+        "properties": {
+          "path": {"type": "string"},
+          "original_value": {"type": ["number", "null"]},
+          "new_value": {"type": "number"},
+          "justification": {"type": "string"},
+          "evidence_citations": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "calculation_trace": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["step", "description"],
+        "properties": {
+          "step": {"type": "string"},
+          "description": {"type": "string"},
+          "values": {"type": "object"}
+        }
+      }
+    },
+    "scoring_input": {"type": ["object", "null"]},
+    "scan": {"type": ["object", "null"]},
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["evidence_id", "metric", "value", "source_name", "source_url", "confidence", "retrieved_at"],
+        "properties": {
+          "evidence_id": {"type": "string"},
+          "metric": {"type": "string"},
+          "value": {"type": ["string", "number", "null"]},
+          "numeric_value": {"type": ["number", "null"]},
+          "unit": {"type": "string"},
+          "source_name": {"type": "string"},
+          "source_url": {"type": "string"},
+          "source_type": {"type": "string"},
+          "retrieved_at": {"type": "string", "format": "date-time"},
+          "retrieved_via": {"type": "string"},
+          "confidence": {"type": "string", "enum": ["high", "medium", "low", "none"]},
+          "confidence_rationale": {"type": "string"},
+          "applies_to": {"type": "array", "items": {"type": "string"}},
+          "notes": {"type": "string"}
+        }
+      }
+    },
+    "narrative": {"type": "object"},
+    "evidence_freshness": {"type": "string", "enum": ["fresh", "recent", "stale", "none"]},
+    "manifest": {
+      "type": "object",
+      "required": ["skill_version", "script_version", "scoring_methodology_version", "input_hash", "evidence_count", "evidence_freshness", "overrides_applied", "computed_at", "output_hash"],
+      "properties": {
+        "skill_version": {"type": "string"},
+        "script_version": {"type": "string"},
+        "scoring_methodology_version": {"type": "string"},
+        "input_hash": {"type": "string"},
+        "output_hash": {"type": "string"},
+        "evidence_count": {"type": "integer"},
+        "evidence_freshness": {"type": "string"},
+        "overrides_applied": {"type": "integer"},
+        "computed_at": {"type": "string"},
+        "model_used": {"type": "string"},
+        "tool_used": {"type": "string"}
+      }
+    }
+  },
+  "definitions": {
+    "axis": {
+      "type": "object",
+      "required": ["axis_score", "sub_scores", "weights"],
+      "properties": {
+        "axis_score": {"type": "number", "minimum": 0, "maximum": 100},
+        "sub_scores": {"type": "object"},
+        "sub_scores_raw": {"type": "object"},
+        "sub_scores_0_100": {"type": "object"},
+        "weights": {"type": "object"}
+      }
+    },
+    "scenario": {
+      "type": "object",
+      "required": ["scenario", "probability", "m0", "lambda", "y5_score", "projection", "adjustments_applied"],
+      "properties": {
+        "scenario": {"type": "string"},
+        "probability": {"type": "number"},
+        "m0": {"type": "number"},
+        "lambda": {"type": "number"},
+        "y5_score": {"type": "number"},
+        "projection": {"type": "array"},
+        "adjustments_applied": {"type": "object"}
+      }
+    }
+  }
+}
