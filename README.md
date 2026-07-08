@@ -23,7 +23,11 @@ npx skills add eligapris/codebase-5yr-forecast-skill -g -y
 | `-g` | Global install (all projects) |
 | `-y` | Skip prompts |
 
+**Listing page:** [skills.sh/eligapris/codebase-5yr-forecast-skill/codebase-5yr-forecast](https://skills.sh/eligapris/codebase-5yr-forecast-skill/codebase-5yr-forecast)
+
 Updates: `npx skills check` · `npx skills update`
+
+> Prefer `npx skills add` (above). `npx skills find` may not show this skill until skills.sh indexes install telemetry. Search tip: query `codebase-5yr-forecast` or `moat` — not `5-years-forecast`.
 
 ### Option B — Full clone (scripts + references + PDF generator)
 
