@@ -2,7 +2,7 @@
 
 **Repository:** [github.com/eligapris/codebase-5yr-forecast-skill](https://github.com/eligapris/codebase-5yr-forecast-skill)
 
-A Cursor Agent Skill that produces a reproducible, evidence-backed **5-year survival and moat forecast** for any codebase, app, or product idea.
+An agent skill for **Cursor**, **Claude Code**, **Codex**, **Qwen Code**, and any skills-compatible agent. It produces a reproducible, evidence-backed **5-year survival and moat forecast** for any codebase, app, or product idea.
 
 The LLM gathers evidence and writes the narrative; **deterministic Python scripts do the scoring.** Same inputs → same scores → same verdict.
 
@@ -33,16 +33,28 @@ Updates: `npx skills check` · `npx skills update`
 
 Required if you want the scoring engine and report generator on disk.
 
-**Cursor (personal):**
+**Cursor**
 
 ```bash
 git clone https://github.com/eligapris/codebase-5yr-forecast-skill.git ~/.cursor/skills/codebase-5yr-forecast
 ```
 
-**Codex:**
+**Claude Code**
+
+```bash
+git clone https://github.com/eligapris/codebase-5yr-forecast-skill.git ~/.claude/skills/codebase-5yr-forecast
+```
+
+**Codex**
 
 ```bash
 git clone https://github.com/eligapris/codebase-5yr-forecast-skill.git ~/.codex/skills/codebase-5yr-forecast
+```
+
+**Qwen Code**
+
+```bash
+git clone https://github.com/eligapris/codebase-5yr-forecast-skill.git ~/.qwen/skills/codebase-5yr-forecast
 ```
 
 **Project-level (team shared):**
@@ -64,7 +76,7 @@ pip install matplotlib numpy reportlab
 ## Use
 
 1. Install (above).
-2. In Cursor (or any agent with the skill loaded), ask for a forecast:
+2. In Cursor, Claude Code, Codex, Qwen Code, or any agent with the skill loaded, ask for a forecast:
 
 ```
 Run a 5-year forecast on ~/my-app
@@ -130,4 +142,4 @@ codebase-5yr-forecast/
 
 ## License
 
-Part of the eligapris Cursor skills collection.
+Part of the eligapris agent skills collection — Cursor · Claude Code · Codex · Qwen Code.
