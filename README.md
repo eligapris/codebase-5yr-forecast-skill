@@ -15,13 +15,15 @@ The LLM gathers evidence and writes the narrative; **deterministic Python script
 ### Option A — Skills CLI (agent instructions only)
 
 ```bash
-npx skills add eligapris/codebase-5yr-forecast-skill -g -y
+npx skills add eligapris/codebase-5yr-forecast-skill -g -y \
+  -a cursor -a claude-code -a qwen-code -a codex
 ```
 
 | Flag | Purpose |
 |------|---------|
 | `-g` | Global install (all projects) |
 | `-y` | Skip prompts |
+| `-a` | Target agents (pin the ones you use; omit to install to all detected agents) |
 
 **Listing page:** [skills.sh/eligapris/codebase-5yr-forecast-skill/codebase-5yr-forecast](https://skills.sh/eligapris/codebase-5yr-forecast-skill/codebase-5yr-forecast)
 
